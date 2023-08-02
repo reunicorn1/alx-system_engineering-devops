@@ -8,3 +8,4 @@ We are describing each script file is doing here:
 5-listfilesdigitonly: displays current directory in long format, with use and group ID displayed numerically and hidden file
 6-firstdirectory:creates a new directory called"my_first_directory in the /tmp/ directory
 7-movethatfile: move The file betty from /tmp/ to /tmp/my_first_directory.
+8-firstdelete: Delete the file betty

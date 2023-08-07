@@ -20,3 +20,4 @@ this file describes each script and what is does
 - 18-letteronly: Display all lines of the file /etc/ssh/sshd_config starting with a letter
 - 19-AZ: Replace all characters A and c from input to Z and e respectively
 - 20-hiago: removes all letters c and C from input
+- 21-reverse:  reverse its input

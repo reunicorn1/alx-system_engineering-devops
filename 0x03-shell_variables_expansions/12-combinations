@@ -1,2 +1,2 @@
 #!/bin/bash
-echo {a..z}{a..z} | fmt --width=2 | grep -v 'oo’
+echo {a..z}{a..z} | tr ' ' '\n’ | grep -v 'oo’

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# This script runs indefinitely ans displays strings when recieving certain signals
+echo $$ > /var/run/myscript.pid
+trap 'echo "I hate the kill command" ; rm /var/run/myscript.pid' SIGTERM
+trap 'echo "Y U no love me?!"' SIGINT
+trap 'rm /var/run/myscript.pid' SIGQUIT
+while true
+do
+   echo "To infinity and beyond"
+done

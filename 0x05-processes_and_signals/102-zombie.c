@@ -31,13 +31,14 @@ int main(void)
 
 	for (i = 0; i < 5; i++)
 	{
+		pid = fork();
 		if (pid > 0)
-			pid = fork();
-		if (pid == 0)
 		{
-			printf("Zombie process created, PID: %i\n", getpid());
-			exit(0);
+			printf("Zombie process created, PID: %d\n", pid);
+			sleep(1);
 		}
+		else
+			exit(1);
 	}
 	infinite_while();
 	return (0);

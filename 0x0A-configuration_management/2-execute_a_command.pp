@@ -1,5 +1,5 @@
 # This Puppet kills a process named killmeow
-exec { 'pkill':
-	command => 'pkill kkillmenow'
-	provider => 'shell'
+exec { 'kill_killmenow_process':
+  command     => '/usr/bin/pkill killmenow',
+  refreshonly => true,
 }

@@ -1,4 +1,4 @@
-# Puppet manifest for a configuration file
+# Puppet manifest for a configuration file in the server
 include stdlib
 
 file_line { 'Turn off passwd auth':

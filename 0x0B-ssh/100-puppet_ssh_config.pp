@@ -3,8 +3,8 @@ include stdlib
 $home_dir = $facts['home']
 
 file { "${home_dir}/.ssh":
-  ensure  => directory,
-  mode    => '0700',
+  ensure => directory,
+  mode   => '0700',
 }
 file { "${home_dir}/.ssh/config":
   ensure  => file,
@@ -16,11 +16,12 @@ file { "${home_dir}/.ssh/config":
   ",
 }
 file_line { 'Turn off passwd auth':
+  ensure => present,
   path   => "${home_dir}/.ssh/config",
   line   => 'PasswordAuthentication no',
-  ensure => present,
-}
+  }
 file_line { 'Declare identity file':
+  ensure => presnet,
   path   => "${home_dir}/.ssh/config",
   line   => 'IdentityFile ~/.ssh/school',
   ensure => present,

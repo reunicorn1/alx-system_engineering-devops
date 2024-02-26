@@ -1,4 +1,4 @@
-# Puppet manifest for a configuration file
+# Puppet manifest for a configuration file in the server
 include stdlib
 $home_dir = $facts['home']
 

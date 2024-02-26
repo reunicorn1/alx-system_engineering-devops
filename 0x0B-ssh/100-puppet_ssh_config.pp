@@ -24,5 +24,4 @@ file_line { 'Declare identity file':
   ensure => presnet,
   path   => "${home_dir}/.ssh/config",
   line   => 'IdentityFile ~/.ssh/school',
-  ensure => present,
 }

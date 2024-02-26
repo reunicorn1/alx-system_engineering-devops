@@ -1,4 +1,13 @@
-file { '~/.ssh/config':
-  ensure  => file,
-  content => "Host *\n    IdentityFile ~/.ssh/school\n     PasswordAuthentication no",
+# Puppet manifest for a configuration file
+include stdlib
+
+file_line { 'Turn off passwd auth':
+  path   => '/etc/ssh/sshd_config',
+  line   => 'PasswordAuthentication no',
+  ensure => present,
+}
+file_line { 'Declare identity file':
+  path   => '/etc/ssh/sshd_config',
+  line   => 'IdentityFile ~/.ssh/school',
+  ensure => present,
 }

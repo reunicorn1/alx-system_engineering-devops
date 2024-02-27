@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# This script installs nginx web server in a new Ubuntu machine,
+# it also sets the configuration files accordingly.
+sudo apt-get update -y
+sudo apt-get install nginx -y 
+sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.html
+new_string="server_name radientrider.tech;\n        location /redirect_me {\n                rewrite ^/redirect_me/?$ https://www.youtube.com/watch?v=dQw4w9WgXcQ permanent;\n        }"
+sudo sed -i "s#server_name _;#$new_string#" /etc/nginx/sites-available/default
+sudo service nginx restart

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-#run apache2 start
+# run apache2
 sudo service apache2 start

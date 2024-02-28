@@ -7,8 +7,8 @@ exec { 'apt-update':
 
 # install nginx package
 package { 'nginx':
+  ensure  => installed
   require => Exec['apt-update'],
-  ensure  => installed,
 }
 
 # hello world HTML file

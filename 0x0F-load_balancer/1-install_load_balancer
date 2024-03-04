@@ -6,3 +6,4 @@ sudo apt-get install haproxy=2.8.\* -y
 string="frontend myfrontend\n\tbind *:80\n\tmode http\n\tdefault_backend myservers\nbackend myservers\n\tbalance roundrobin\n\tmode http\n\tserver 514072-web-01 100.27.11.128:80 check\n\tserver 514072-web-02 54.209.192.180:80 check"
 sudo sed -i "$ a $string" /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
+sudo systemctl enable haproxy

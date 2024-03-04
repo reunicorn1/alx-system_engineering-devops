@@ -41,8 +41,8 @@ frontend http_front
 
 backend http_back
     balance roundrobin
-    server web-01 [STUDENT_ID]-web-01:80 check
-    server web-02 [STUDENT_ID]-web-02:80 check
+    server 514072-web-01 100.27.11.128:80 check
+    server 514072-web-02 54.209.192.180:80 check
 EOF
 
 # Restart HAProxy service
@@ -50,4 +50,3 @@ sudo systemctl restart haproxy
 
 # Enable HAProxy to start on boot
 sudo systemctl enable haproxy
-

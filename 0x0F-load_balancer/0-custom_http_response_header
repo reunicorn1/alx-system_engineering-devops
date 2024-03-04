@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 # This script configures a brand new Ubuntu machine o that its HTTP response contains a custom header: X-Served-By
+sudo apt-get update -y
+sudo apt-get install nginx -y
+sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.html
+new_string="server_name _;\n        location /redirect_me {\n                rewrite ^/redirect_me/?$ https://www.youtube.com/watch?v=dQw4w9WgXcQ permanent;\n        }"
+sudo sed -i "s#server_name _;#$new_string#" /etc/nginx/sites-available/default
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
+error_string="error_page 404 /custom_404.html;"
+sudo sed -i "s!# pass PHP scripts to FastCGI server!$error_string!" /etc/nginx/sites-available/default
+sudo service nginx restart
 hostname=$(hostname)
 string="\n\tadd_header X-Served-By \"$hostname\";"
 sudo sed -i "/server_name _;/ a\\

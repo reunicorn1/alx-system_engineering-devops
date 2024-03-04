@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
-# This script configures you lb-01 server
-sudo apt-get install --no-install-recommends software-properties-common -y
-sudo add-apt-repository ppa:vbernat/haproxy-2.8 -y
-sudo apt-get install haproxy=2.8.\* -y
+# Install HAProxy
+sudo apt-get update
+sudo apt-get install -y haproxy
 
-echo "global
+# Backup the original HAProxy configuration file
+sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
+
+# Configure HAProxy
+cat <<EOF | sudo tee /etc/haproxy/haproxy.cfg > /dev/null
+global
     log /dev/log    local0
     log /dev/log    local1 notice
     chroot /var/lib/haproxy
@@ -31,15 +35,19 @@ defaults
     errorfile 504 /etc/haproxy/errors/504.http
 
 frontend http_front
-	mode http
-    bind :80
+    bind *:80
+    stats uri /haproxy?stats
     default_backend http_back
 
 backend http_back
-	mode http
     balance roundrobin
-    server 514072-web-01 100.27.11.128:80 check
-    server 514072-web-02 54.209.192.180:80 check
-" | sudo tee /etc/haproxy/haproxy.cfg
+    server web-01 [STUDENT_ID]-web-01:80 check
+    server web-02 [STUDENT_ID]-web-02:80 check
+EOF
 
-sudo service haproxy restart
+# Restart HAProxy service
+sudo systemctl restart haproxy
+
+# Enable HAProxy to start on boot
+sudo systemctl enable haproxy
+

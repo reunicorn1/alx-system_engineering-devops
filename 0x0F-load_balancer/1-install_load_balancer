@@ -4,8 +4,7 @@ sudo apt-get install --no-install-recommends software-properties-common -y
 sudo add-apt-repository ppa:vbernat/haproxy-2.8 -y
 sudo apt-get install haproxy=2.8.\* -y
 
-echo "
-global
+echo "global
     log /dev/log    local0
     log /dev/log    local1 notice
     chroot /var/lib/haproxy
@@ -32,11 +31,12 @@ defaults
     errorfile 504 /etc/haproxy/errors/504.http
 
 frontend http_front
-    bind *:80
-    stats uri /haproxy?stats
+	mode http
+    bind :80
     default_backend http_back
 
 backend http_back
+	mode http
     balance roundrobin
     server 514072-web-01 100.27.11.128:80 check
     server 514072-web-02 54.209.192.180:80 check

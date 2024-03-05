@@ -40,5 +40,5 @@ frontend http_front
 " | sudo tee /etc/haproxy/haproxy.cfg 
 
  # Restart HAProxy service
- sudo service haproxy restart
+ sudo service haproxy start
 

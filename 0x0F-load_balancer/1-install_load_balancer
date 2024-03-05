@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 # Install HAProxy
-sudo apt-get update
-sudo apt-get install -y haproxy
-
-# Backup the original HAProxy configuration file
-sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.bak
-
+sudo apt-get install --no-install-recommends software-properties-common -y
+sudo add-apt-repository ppa:vbernat/haproxy-2.8 -y
+sudo apt-get install haproxy=2.8.\* -y
 # Configure HAProxy
-cat <<EOF | sudo tee /etc/haproxy/haproxy.cfg > /dev/null
-global
+echo
+"global
     log /dev/log    local0
     log /dev/log    local1 notice
     chroot /var/lib/haproxy
@@ -17,7 +14,6 @@ global
     user haproxy
     group haproxy
     daemon
-
 defaults
     log     global
     mode    http
@@ -33,26 +29,16 @@ defaults
     errorfile 502 /etc/haproxy/errors/502.http
     errorfile 503 /etc/haproxy/errors/503.http
     errorfile 504 /etc/haproxy/errors/504.http
-
 frontend http_front
     bind *:80
     stats uri /haproxy?stats
     default_backend http_back
+ backend http_back
+     balance roundrobin
+     server 514072-web-01 100.27.11.128:80 check
+     server 514072-web-02 54.209.192.180:80 check
+" | sudo tee /etc/haproxy/haproxy.cfg 
 
-backend http_back
-    balance roundrobin
-    server 514072-web-01 100.27.11.128:80 check
-    server 514072-web-02 54.209.192.180:80 check
-	http-request set-header Host %[req.hdr(Host)]
-    http-request set-header X-Real-IP %[src]
-	http-request set-header X-Forwarded-For %[src]
-	http-request set-header X-Served-By: %[src]
-    option http-server-close
-EOF
+ # Restart HAProxy service
+ sudo service haproxy restart
 
-
-# Restart HAProxy service
-sudo systemctl restart haproxy
-
-# Enable HAProxy to start on boot
-sudo systemctl enable haproxy

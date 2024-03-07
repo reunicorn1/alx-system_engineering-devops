@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# This script displays information about subdomains
+digging () {
+	record=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | awk '{print $4}' | tr -d '\n')
+	ip=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | awk '{print $5}' | tr -d '\n')
+	echo "The subdomain $2 is a $record record and points to $ip"
+}
+
+subs=('www' 'lb-01' 'web-01' 'web-02')
+if [ -z "$2" ]
+then
+	for i in "${subs[@]}"
+	do
+		digging "$1" "$i"
+	done
+else
+	digging "$1" "$2"
+fi

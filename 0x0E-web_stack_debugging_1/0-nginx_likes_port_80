@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 # -configures an NGINX server to listen to port 80
-sudo rm /etc/nginx/sites-enabled/*
-sudo ln -s --force /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo rm -rf /etc/nginx/sites-enabled/*
+echo "server {
+    listen 80;
+    server_name localhost;
+
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+}" | sudo tee /etc/nginx/sites-enabled/nginx.conf
 sudo service nginx start

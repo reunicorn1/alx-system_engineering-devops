@@ -2,5 +2,4 @@
 # configures an NGINX server to listen to port 80
 sudo rm /etc/nginx/sites-enabled/*
 sudo ln -s --force /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-mv index.nginx-debian.html index.html
-sudo service nginx restart
+sudo service nginx start

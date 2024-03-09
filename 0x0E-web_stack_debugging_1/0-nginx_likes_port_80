@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # configures an NGINX server to listen to port 80
-sudo sed -i 's/listen\s*80;/listen 80 default_server;/g' /etc/nginx/sites-available/default
 sudo rm /etc/nginx/sites-enabled/*
 sudo ln -s --force /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 mv index.nginx-debian.html index.html

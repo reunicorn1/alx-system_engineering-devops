@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This script changes the owner of the nginx process to be the user nginx
+pkill nginx 
+sudo chmod +r /etc/nginx/nginx.conf
+sudo -u nginx service nginx restart

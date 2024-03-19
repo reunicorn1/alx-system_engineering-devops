@@ -2,4 +2,7 @@
 # This script changes the owner of the nginx process to be the user nginx
 pkill nginx 
 sudo chmod +r /etc/nginx/nginx.conf
+sudo sed -i 's/# user .*/user nginx;/' /etc/nginx/nginx.conf
+sudo sed -i 's/listen 80 default_server;/listen 8080 default_server;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/listen \[::\]:80 default_server/listen \[::\]:8080 default_server/g' /etc/nginx/sites-available/default
 sudo -u nginx service nginx restart

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # This is a script to create MYSQL backup
-mysqldump -u root -p $1 --all-databases --skip-lock-tables > ./backup.sql
+mysqldump -u root -p $1 -databases --skip-lock-tables > ./backup.sql
 tar -czf "$(date "+%d-%m-%Y")".tar.gz ./backup.sql

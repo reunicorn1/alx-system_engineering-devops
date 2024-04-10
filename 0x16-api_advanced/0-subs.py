@@ -4,7 +4,6 @@ This is a script to retrieve the number of subscribers in a certain
 subreddit
 """
 import requests
-import json
 
 
 def number_of_subscribers(subreddit):

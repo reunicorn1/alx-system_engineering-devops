@@ -17,7 +17,7 @@ def number_of_subscribers(subreddit):
                          format(subreddit), headers=headers,
                          allow_redirects=False)
         if (r.ok):
-            return (r.json()['data']['subscribers'])
+            return (r.json().get('data').get('subscribers'))
         return 0
     except Exception as e:
         return 0

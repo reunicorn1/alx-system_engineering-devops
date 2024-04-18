@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# A bash script to reload gunicorn gracefully
+kill -HUP "$(ps -C gunicorn feh -o pid | head -n 1)"
+sudo systemctl enable gunicorn
+sudo systemctl reload nginx
